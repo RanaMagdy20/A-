@@ -1,4 +1,3 @@
-import math
 def star(graph,start,end):
     def heuristic(node):
         return ((node[0] - end[0])**2 + (node[1] - end[1])**2)**0.5
@@ -6,7 +5,7 @@ def star(graph,start,end):
     length=len(boundary)
     comefrom = {}
     gvalues = {start: 0}
-    distances = {start: 0}
+    dist = {start: 0}
     while  length> 0:
         current = min(boundary, key=lambda x: gvalues[x] + heuristic(x))
         boundary.remove(current)
@@ -20,19 +19,19 @@ def star(graph,start,end):
             g = gvalues[current] + 1
             if neighbors not in gvalues or gvalues[neighbors] > g:
                 gvalues[neighbors] = g
-                distances[neighbors] = distances[current] + 1
+                dist[neighbors] = dist[current] + 1
                 boundary.add(neighbors)
                 comefrom[neighbors] = current
 #adjacency list ex:
 #graph A,B,C,D,E,F,G,H,I
 graph = {
-    (0, 0): [(0, 1), (1, 2)],
-    (0, 1): [(0, 0), (1, 1),(0,2),(1, 2)],
-    (0, 2): [(0,1),(2, 0),(1, 1),(1, 0)],
-    (1, 0): [(0, 2), (2, 0)],
-    (1, 2): [(0,0), (0,1),(1, 1),(2, 0),(2, 1)],
-    (1, 1): [(0, 1), (1, 2), (2,0),(0, 2)],
-    (2, 0) : [(2,2),(1, 2),(1, 1),(0, 2),(1, 0)], 
+    (0, 0): [(0,1), (1,2)],
+    (0, 1): [(0,0), (1,1),(0,2),(1,2)],
+    (0, 2): [(0,1),(2,0),(1,1),(1,0)],
+    (1, 0): [(0,2), (2,0)],
+    (1, 2): [(0,0), (0,1),(1,1),(2, 0),(2,1)],
+    (1, 1): [(0,1), (1,2), (2,0),(0,2)],
+    (2, 0) : [(2,2),(1,2),(1,1),(0,2),(1,0)], 
     (2, 1): [(1,2)],
     (2,2): [(2,0)]
 }
@@ -40,7 +39,7 @@ graph = {
 #start , end point:
 start = (0,0 )
 end = (1, 0)
-c, p = star(graph, start, end)
+c,p = star(graph, start, end)
 print(c)
 print(p)
 ####output:[(0, 0), (1, 2), (2, 0), (1, 0)]
