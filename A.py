@@ -43,3 +43,5 @@ end = (1, 0)
 c, p = star(graph, start, end)
 print(c)
 print(p)
+####output:[(0, 0), (1, 2), (2, 0), (1, 0)]
+####3
